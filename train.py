@@ -28,6 +28,9 @@ X_train, X_test, y_train, y_test = train_test_split(
     random_state=42
 )
 
+# Set local tracking URI
+mlflow.set_tracking_uri(f"file://{os.path.abspath('mlruns')}")
+
 # Create Experiment
 mlflow.set_experiment("House Price Prediction")
 
