@@ -1,29 +1,11 @@
-# Docker Setup & Launch Guide
+FROM python:3.11-slim
 
-Build Docker Image:
-```bash
-docker build -t house-price:v1 -f Dockerfile .
-```
+WORKDIR /app
 
-Run Docker Container:
-```bash
-docker run -d -p 1234:1234 --name house-api house-price:v1
-```
+RUN pip install mlflow pandas scikit-learn psycopg2-binary
 
-Test Invocations:
-```bash
-curl -X POST http://127.0.0.1:1234/invocations \
--H "Content-Type: application/json" \
--d '{
-  "dataframe_records": [
-    {
-      "LotArea": 9000,
-      "OverallQual": 7,
-      "OverallCond": 5,
-      "YearBuilt": 2010,
-      "GrLivArea": 1900,
-      "GarageCars": 2
-    }
-  ]
-}'
-```
+COPY mlruns ./mlruns
+
+EXPOSE 1234
+
+CMD ["mlflow","models","serve","-m","/app/mlruns/1/models/m-2a4c27becbe64ac2b4e509ac2a34c155/artifacts","-p","1234","--host","0.0.0.0","--no-conda"]

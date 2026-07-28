@@ -44,9 +44,8 @@ for _ in range(num_records):
 # Create DataFrame
 df = pd.DataFrame(data)
 
-import os
-output_path = os.path.join(os.path.dirname(__file__), "raw", "house_prices_fake.csv")
-df.to_csv(output_path, index=False)
+# Save to CSV
+df.to_csv("house_prices_fake.csv", index=False)
 
 print(df.head())
-print(f"\nCSV file '{output_path}' created successfully.")
+print("\nCSV file 'house_prices_fake.csv' created successfully.")

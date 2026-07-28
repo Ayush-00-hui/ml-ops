@@ -1,12 +1,26 @@
+# Python virtual environment
 venv/
-.venv/
-env/
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-mlruns/
+
+# Model artifacts
 model_artifact/
+
+# MLflow tracking
+mlruns/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Serialized models
+*.joblib
+*.pkl
+
+# Optional: Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# Optional: Environment variables
+.env
+
+# Optional: IDE files
 .vscode/
 .idea/
-.DS_Store

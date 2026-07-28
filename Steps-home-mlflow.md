@@ -21,37 +21,16 @@ End to end Deployment
 
 3. Create Project Structure
 
-mlflow-homeprice/
+mlflow-homePrice/
 │
-├── data/                       # Datasets & generation scripts
-│   ├── raw/
-│   │   └── house_prices.csv
-│   └── generate_fake_data.py
+├── data/
+│   └── house_prices.csv
 │
-├── src/                        # ML source code
-│   ├── train.py
-│   ├── predict.py
-│   └── utils/
-│       └── pickle_utils.py
-│
-├── docker/                     # Dockerfiles
-│   ├── Dockerfile
-│   └── Dockerfile.jenkins
-│
-├── k8s/                        # Kubernetes manifests
-│   ├── deployment.yml
-│   ├── service.yml
-│   └── kind-config.yml
-│
-├── jenkins/                    # CI/CD Jenkins files
-│   ├── Jenkinsfile.local
-│   ├── Jenkinsfile.cloud
-│   └── README.md
-│
-├── docs/                       # Project documentation
-├── mlruns/                     # MLflow tracking
+├── train.py
+├── predict.py
 ├── requirements.txt
-└── README.md
+│
+└── mlruns/
 
 4. Default sqlite      sqlite:///mlflow.db   
 #production
@@ -73,11 +52,11 @@ mlflow-homeprice/
   Artifacts
   Experiment history
 
-5. Training Script  src/train.py
+5. Training Script  train.py
 
-(venv-mlflow) /home/hadoop/workspace/mlflow-homePrice $  python src/train.py
+(venv-mlflow) /home/hadoop/workspace/mlflow-homePrice $  python train.py
 
-change src/train.py 
+change train.py 
 n_estimators = 50
 n_estimators = 100
 n_estimators = 200
@@ -119,10 +98,11 @@ curl -X POST http://127.0.0.1:1234/invocations \
 
 8. Test deployed model 
 
-python src/predict.py
+python predict.py
 
 9. Deploy 
-docker build -t house-price:v1 -f docker/Dockerfile .
+make Dockefile
+docker build -t house-price:v1 .
 
 docker run -d \
 -p 1234:1234 \
@@ -154,23 +134,23 @@ docker push cnsnoida/house-price:v1
 
 
 #k8
-kind create cluster --config k8s/kind-config.yml
+kind create cluster --config kind-config.yml
 kind get clusters
 
 -- Load Image in kind
 kind load docker-image house-price:v1
 
 
-kubectl apply -f k8s/deployment.yml
+kubectl apply -f deployment.yml
 kubectl get pods
 
-kubectl apply -f k8s/service.yml
+kubectl apply -f service.yml
 kubectl get svc
 
 kubectl port-forward service/house-price-service 8080:80
 
 -- 
-kubectl delete -f k8s/deployment.yml 
+kubectl delete -f deployment.yml 
 kubectl describe pod house-price-c74455855-28rbm
 
 -- test pod deployment

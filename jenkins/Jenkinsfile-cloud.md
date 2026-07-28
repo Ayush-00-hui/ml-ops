@@ -31,7 +31,7 @@ pipeline {
             steps {
                 sh '''
                 . venv/bin/activate
-                python src/train.py
+                python train.py
                 '''
             }
         }
@@ -59,7 +59,6 @@ pipeline {
             steps {
                 sh """
                 docker build \
-                -f docker/Dockerfile \
                 --build-arg MODEL_PATH=${MODEL_PATH} \
                 -t ${IMAGE_NAME}:${IMAGE_TAG} .
                 """

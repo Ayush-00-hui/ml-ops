@@ -70,7 +70,7 @@ pipeline {
                 dir("${PROJECT_DIR}") {
                     sh '''
                     . venv/bin/activate
-                    python3 src/train.py
+                    python3 train.py
                     '''
                 }
             }
@@ -133,7 +133,7 @@ pipeline {
             steps {
                 dir("${PROJECT_DIR}") {
                     sh '''
-                    docker build -f docker/Dockerfile -t ${IMAGE_NAME}:${IMAGE_TAG} -t ${IMAGE_NAME}:latest .
+                    docker build -t ${IMAGE_NAME}:${IMAGE_TAG} -t ${IMAGE_NAME}:latest .
                     '''
                 }
             }

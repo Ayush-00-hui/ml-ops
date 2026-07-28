@@ -1,25 +1,15 @@
-import os
 import pandas as pd
-import pickle
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_squared_error, r2_score
 
-data_path = os.path.join(os.path.dirname(__file__), "data", "house_prices.csv")
-df = pd.read_csv(data_path)
+# Read CSV file
+df = pd.read_csv("data/house_prices.csv")
 
-X = df.drop("SalePrice", axis=1)
-y = df["SalePrice"]
+# Save DataFrame as a pickle file
+df.to_pickle("data/house_prices.pkl")
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+print("DataFrame saved as pickle.")
 
-model = RandomForestRegressor(n_estimators=100, random_state=42)
-model.fit(X_train, y_train)
 
-prediction = model.predict(X_test)
-print("MSE:", mean_squared_error(y_test, prediction))
-print("R2 :", r2_score(y_test, prediction))
+#load pickle
+df = pd.read_pickle("data/house_prices.pkl")
 
-with open("model.pkl", "wb") as f:
-    pickle.dump(model, f)
-print("Saved model to model.pkl")
+print(df.head())
