@@ -3,7 +3,7 @@ import mlflow.pyfunc
 import pandas as pd
 
 # Load the MLflow model
-model_path = os.path.join(os.path.dirname(__file__), "..", "mlruns", "1", "models", "m-2a4c27becbe64ac2b4e509ac2a34c155", "artifacts")
+model_path = os.path.join(os.path.dirname(__file__), "mlruns", "1", "models", "m-2a4c27becbe64ac2b4e509ac2a34c155", "artifacts")
 if not os.path.exists(model_path):
     model_path = "mlruns/1/models/m-2a4c27becbe64ac2b4e509ac2a34c155/artifacts"
 

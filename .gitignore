@@ -1,19 +1,12 @@
-# Environments
 venv/
 .venv/
 env/
-
-# Python Cache
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-
-# MLflow & Model Artifacts
 mlruns/
 model_artifact/
-
-# IDE & OS
 .vscode/
 .idea/
 .DS_Store

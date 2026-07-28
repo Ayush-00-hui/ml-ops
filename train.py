@@ -9,9 +9,9 @@ from sklearn.metrics import mean_squared_error, r2_score
 import os
 
 # Load CSV
-data_path = os.path.join(os.path.dirname(__file__), "..", "data", "raw", "house_prices.csv")
+data_path = os.path.join(os.path.dirname(__file__), "data", "house_prices.csv")
 if not os.path.exists(data_path):
-    data_path = "data/raw/house_prices.csv"
+    data_path = "data/house_prices.csv"
 df = pd.read_csv(data_path)
 
 # Features
